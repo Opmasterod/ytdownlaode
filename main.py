@@ -5,6 +5,7 @@ from telegram.ext import (
     Application, MessageHandler, CallbackQueryHandler, filters, ContextTypes
 )
 import os
+import asyncio
 
 # Flask app
 app = Flask(__name__)
@@ -106,9 +107,7 @@ async def handle_quality_selection(update: Update, context: ContextTypes.DEFAULT
     await query.edit_message_text(f"Here is your download link:\n{download_url}")
 
 def start_bot():
-    application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
-    application.add_handler(CallbackQueryHandler(handle_quality_selection))
-    application.run_polling()
+    asyncio.run(application.run_polling())
 
 if __name__ == "__main__":
     from threading import Thread
