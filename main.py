@@ -107,7 +107,9 @@ async def handle_quality_selection(update: Update, context: ContextTypes.DEFAULT
     await query.edit_message_text(f"Here is your download link:\n{download_url}")
 
 def start_bot():
-    asyncio.run(application.run_polling())
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    loop.run_until_complete(application.run_polling())
 
 if __name__ == "__main__":
     from threading import Thread
